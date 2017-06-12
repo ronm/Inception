@@ -1,0 +1,153 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* { box-sizing: border-box; }
+body { font: 300 16px/1.5 'Rubik', sans-serif; }
+h1, h2, h3, h4 { font-weight: 400;margin-bottom: .5rem; }
+button, select { font-family: 'Rubik', sans-serif;font-weight: 300; }
+
+#origin {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+
+	form {
+    	max-width: 40rem;
+		opacity: 0;		
+		padding: 0 1rem;
+		transition: opacity .35s;		
+	    width: 100%;
+	}
+
+	&[open] form {
+		opacity: 1;
+		transition: opacity .35s .15s;
+	}
+}
+
+.form-item {
+	padding: .5rem 0;
+
+	input, textarea, button, select {
+		border: 1px solid #eee;	
+		border-radius: 1px;
+		padding: .5rem;
+	}
+	
+	input:not([type="radio"]), textarea {
+		width: 100%;
+	}
+	
+	input[type="radio"] {
+		margin-left: .25rem;
+	}
+	
+	label:not(:last-child) {
+	    margin-right: 1rem;
+	}
+	
+	button {
+		background: #eee;
+		cursor: pointer;
+		transition: all .3s ease;
+		
+		&:hover {
+			background: #ddd;
+		}
+	}
+}
+
+#target {
+	background: red;
+	height: 200px;
+	margin: 0 0 0 auto;
+	width: 300px;	
+}
+
+#origin {
+    background: red;
+    height: 98vh;
+	max-height: 50rem;
+	max-width: 75rem;	
+    padding: 1.5rem;
+	width: 98vw;
+	z-index: 11;
+}
+
+#origin[open] {
+	background: #f9f9f9;
+}
+
+</style>
+</head>
+<body>
+
+
+
+<div id="target"></div>
+<div id="origin">
+  <form>
+    <div class="form-wrapper">
+      <div class="form-item">
+        <input type="text" placeholder="Name"/>
+      </div>
+      <div class="form-item">
+        <input type="email" placeholder="Email"/>
+      </div>
+      <div class="form-item">
+        <input type="text" placeholder="Title"/>
+      </div>
+      <div class="form-item">
+        <select>
+          <option>One</option>
+          <option>Two</option>
+          <option>Three</option>
+        </select>
+      </div>
+      <div class="form-item">
+        <h3>Favorite Color			</h3>
+        <label>One
+          <input type="radio" name="Orange" value="color"/>
+        </label>
+        <label>Two
+          <input type="radio" name="Red" value="color"/>
+        </label>
+        <label>Three
+          <input type="radio" name="Blue" value="color"/>
+        </label>
+      </div>
+      <div class="form-item">
+        <textarea placeholder="Question"></textarea>
+      </div>
+      <div class="form-item">
+        <button>Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script src="./inception.js"></script>
+<script>
+(function(){
+
+	var modal = new Inception(document.getElementById("origin"), { fade: false});
+	
+	document.getElementById("target").addEventListener("click", function() {	
+		modal.open(this).then(function() { console.log("opened"); });
+	});
+	
+	modal.modal.addEventListener("click", function(event) {
+		if ( event.target === modal.modal ) {
+			modal.close().then(function() { console.log("closed"); });
+		}
+	});
+	
+})();
+</script>
+</body>
+</html>
